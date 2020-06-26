@@ -26,8 +26,16 @@ class Compute(object):
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
     def POST(self):
+        mylist = []
+        sm_list = []
         input_json = cherrypy.request.json
-        cherrypy.log("Post request param type: " + str(type(input_json[0])))
+        for i in input_json:
+            for key, val in i.items():
+                sm_list.append(val)
+            mylist.append(sm_list)
+            sm_list = []
+
+        cherrypy.log("Post request param type: \n" + str(mylist))
         return input_json
 
     def PUT(self, another_string):
