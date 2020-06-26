@@ -1,0 +1,21 @@
+{% extends "views/base.html" %}
+
+{% block content %}
+
+  <div class="my-auto">
+    <img src="/static/img/cherry.jpeg" class="rounded mx-auto my=auto d-block" alt="...">
+    <h1 class="text-center">Welcome!</h1>
+    
+    <!-- HTML to write -->
+    <a href="/compute" data-toggle="tooltip" title="Some tooltip text!">Click here to start cherrypying</a>
+
+    <!-- Generated markup by the plugin -->
+    <div class="tooltip bs-tooltip-top" role="tooltip">
+      <div class="arrow"></div>
+      <div class="tooltip-inner">
+        Stats computation page.
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

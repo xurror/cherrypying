@@ -1,0 +1,65 @@
+{% extends "views/base.html" %}
+
+{% block content %}
+
+  <table id="arr"></table>
+
+  <button id="compute" class="btn btn-primary">Compute</button>
+
+  <br>
+
+  <table id="records_table" class="table table-bordered table-hover">
+  </table>
+
+{% endblock content %}
+
+{% block scripts %}
+
+  <script src="/static/js/appendGrid.js"></script>
+  <script>
+    $(document).ready(function(){
+      var myAppendGrid = new AppendGrid({
+        element: "arr",
+        uiFramework: "bootstrap4",
+        columns: [
+          {
+            name: "num_1"
+          },
+          {
+            name: "num_2"
+          },
+          {
+            name: "num_3"
+          }
+        ],
+        sizing: "small",
+        hideRowNumColumn: true
+      });
+
+      $("#compute").click(function(e) {
+        var data = myAppendGrid.getAllValue();
+        // var json = JSON.stringify(data);
+        $.post({
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify(data),
+          url: "/compute",
+          error:function () {
+              alert('Sorry, an error occurred. Please try again later.');
+          },
+          success: function(res) {
+              alert(res);
+              console.log(res);
+              var trHTML = '';
+              $.each(res, function (i, item) {
+                  trHTML += '<tr><td>' + item.num_1 + '</td><td>' + item.num_2 + '</td><td>' + item.num_3 + '</td></tr>';
+              });
+              $('#records_table').append(trHTML);
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+
+{% endblock scripts %}
